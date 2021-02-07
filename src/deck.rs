@@ -2,6 +2,7 @@ use rand;
 use rand::prelude::SliceRandom;
 use std::fmt;
 use std::collections::HashMap;
+use std::hash::Hash;
 use crate::card::Card;
 use crate::suit::Suit;
 use crate::hand::Hand;
@@ -43,13 +44,14 @@ impl Deck {
         Ok(self.cards.split_off(self.cards.len() - num_cards as usize))
     }
 
-    pub fn deal(&mut self, players: u8, num_cards: u8) -> Result<HashMap<u8, Hand>, String>{
-        if players * num_cards > self.cards.len() as u8 {
+    pub fn deal<T: Eq + Hash + Copy>(&mut self, players: Vec<T>, num_cards: u8) -> Result<HashMap<T, Hand>, String>{
+        let num_players: u8 = players.len() as u8;
+        if num_players * num_cards > self.cards.len() as u8 {
             return Err(String::from("Not enough cards in deck"));
         }
-        let mut ret: HashMap<u8, Hand> = HashMap::new();
-        for i in 0..players {
-            ret.insert(i, Hand::new(self.draw_n(num_cards).unwrap()));
+        let mut ret: HashMap<T, Hand> = HashMap::new();
+        for player in players.iter() {
+            ret.insert(*player, Hand::new(self.draw_n(num_cards).unwrap()));
         }
         println!("{}", self);
         Ok(ret)
