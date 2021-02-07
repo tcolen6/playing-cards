@@ -6,8 +6,6 @@ use crate::card::Card;
 use crate::suit::Suit;
 use crate::hand::Hand;
 
-
-const CARDS_IN_DECK: i32 = 52;
 const HIGHEST_CARD: u8 = 14;
 const LOWEST_CARD: u8 = 2;
 

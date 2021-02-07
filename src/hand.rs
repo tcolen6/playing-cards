@@ -2,9 +2,9 @@ use std::fmt;
 use crate::card::Card;
 use crate::suit::Suit;
 
-struct CardInHand {
-    card: Card,
-    position: u8,
+pub struct CardInHand {
+    pub card: Card,
+    pub position: u8,
 }
 
 impl fmt::Display for CardInHand {
@@ -14,7 +14,7 @@ impl fmt::Display for CardInHand {
 }
 
 pub struct Hand {
-    cards: Vec<CardInHand>
+    pub cards: Vec<CardInHand>
 }
 
 impl Hand {
