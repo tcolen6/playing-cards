@@ -1,18 +1,16 @@
-use std::fmt;
-use std::slice::Iter;
 use core::cmp::Ord;
-use std::cmp::Ordering;
+use std::{cmp::Ordering, fmt, slice::Iter};
 
 #[derive(Copy, Clone, Eq)]
 pub enum Suit {
     Clubs,
     Diamonds,
     Hearts,
-    Spades
+    Spades,
 }
 
 impl Suit {
-    pub fn iterator() -> Iter<'static, Suit>{
+    pub fn iterator() -> Iter<'static, Suit> {
         static SUITS: [Suit; 4] = [Suit::Clubs, Suit::Diamonds, Suit::Hearts, Suit::Spades];
         SUITS.iter()
     }

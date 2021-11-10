@@ -1,27 +1,13 @@
+use crate::{Card, Suit};
 use std::fmt;
-use crate::card::Card;
-use crate::suit::Suit;
-
-pub struct CardInHand {
-    pub card: Card,
-    pub position: u8,
-}
-
-impl fmt::Display for CardInHand {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}", self.card)
-    }
-}
 
 pub struct Hand {
-    pub cards: Vec<CardInHand>
+    pub cards: Vec<Card>,
 }
 
 impl Hand {
-    pub fn new(mut cards: Vec<Card>) -> Self {
-        let positions: Vec<u8> = (0..cards.len() as u8).collect();
-        cards.sort();
-        Hand {cards: cards.iter().zip(positions.iter()).map(|(x, y)| CardInHand{card: *x, position: *y}).collect() }
+    pub fn new(cards: Vec<Card>) -> Self {
+        Hand { cards }
     }
 }
 
@@ -30,10 +16,10 @@ impl fmt::Display for Hand {
         let mut res: String = String::new();
         for suit in Suit::iterator() {
             res = res + &format!("{} |", suit);
-            for card in self.cards.iter().filter(|x| x.card.suit == *suit) {
+            for card in self.cards.iter().filter(|x| x.suit == *suit) {
                 res = res + &format!(" {}", card);
             }
-            res = res + "\n";
+            res += "\n";
         }
         write!(f, "{}", res)
     }

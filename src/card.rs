@@ -1,17 +1,16 @@
-use std::fmt;
+use crate::Suit;
 use core::cmp::Ord;
-use std::cmp::Ordering;
-use crate::suit::Suit;
+use std::{cmp::Ordering, fmt};
 
 #[derive(Copy, Clone, Eq)]
 pub struct Card {
     pub suit: Suit,
-    pub value: u8
+    pub value: u8,
 }
 
 impl Card {
     pub fn new(suit: Suit, value: u8) -> Card {
-        Card {suit, value}
+        Card { suit, value }
     }
 }
 
@@ -31,7 +30,7 @@ impl Ord for Card {
     fn cmp(&self, other: &Self) -> Ordering {
         if self.suit == other.suit {
             self.value.cmp(&other.value)
-        }  else {
+        } else {
             self.suit.cmp(&other.suit)
         }
     }
